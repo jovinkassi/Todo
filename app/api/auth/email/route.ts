@@ -22,7 +22,8 @@ export async function POST(req: Request) {
       const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET!, {
         expiresIn: '7d',
       });
-     return NextResponse.json({ token, userId: user?user.id ?? null });
+          return NextResponse.json({ token, userId: user.id });
+
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await prisma.user.create({
@@ -32,7 +33,8 @@ export async function POST(req: Request) {
       const token = jwt.sign({ id: newUser.id, email: newUser.email }, process.env.JWT_SECRET!, {
         expiresIn: '7d',
       });
-    return NextResponse.json({ token, userId: user?user.id ?? null });
+        return NextResponse.json({ token, userId: user.id });
+
     }
   } catch (error) {
     console.error('Error:', error);
