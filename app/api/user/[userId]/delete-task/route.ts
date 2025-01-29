@@ -24,13 +24,13 @@ export async function DELETE(req: Request) {
       select: { todos: true }, // Only fetch the 'todos' array
     });
 
-    if (!user) {
-      console.error('User not found');
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    if (!user || !user.todos) {
+      return NextResponse.json({ error: "User or todos not found" }, { status: 404 });
     }
 
-    // Filter out the task that matches the taskId
-    const updatedTodos = user.todos.filter((task: ITask) => task.id !== taskId);
+    const todosArray = Array.isArray(user.todos) ? user.todos : JSON.parse(user.todos as string);
+    
+    const updatedTodos = todosArray.filter((task: ITask) => task.id !== taskId);
 
     // Update the user record with the updated todos array
     const updatedUser = await prisma.user.update({

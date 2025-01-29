@@ -28,8 +28,11 @@ export async function PUT(req: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
+    const todosArray = Array.isArray(user.todos) ? user.todos : user.todos ? JSON.parse(user.todos as string) : [];
+
+
     // Explicitly type the 'task' parameter as ITask
-    const updatedTodos = user.todos.map((task: ITask) => {  // Explicitly type task
+    const updatedTodos = todosArray.map((task: ITask) => {  // Explicitly type task
       if (task.id === taskId) {
         return {
           ...task,
