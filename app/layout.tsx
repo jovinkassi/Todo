@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "To-Do",
-  description: "Using Nextjs & Typescript on Web3 ",
+  title: "Vaultask",
+  description: "Your Web3-powered task vault",
 };
 
 export default function RootLayout({
@@ -24,9 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-white`}>
         {children}
       </body>
     </html>
